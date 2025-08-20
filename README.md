@@ -121,10 +121,7 @@ Jika proyek ini bermanfaat bagi Anda, dukung pengembangan dengan:
 
 ## 📞 Kontak & Dukungan
 
-- 💬 **Discord**: [Join Server](https://discord.gg/donasikita)
-- 📧 **Email**: support@donasikita.com
-- 🐦 **Twitter**: [@donasikita](https://twitter.com/donasikita)
-- 💼 **LinkedIn**: [Donasikita Project](https://linkedin.com/company/donasikita)
+- 📧 **Email**: hexas@187@gmail.com
 
 ---
 
