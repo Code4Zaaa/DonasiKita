@@ -49,8 +49,8 @@ Proyek ini terinspirasi dari tampilan dan pengalaman pengguna di **[KitaBisa](ht
 
 ```bash
 # Clone repository
-git clone https://github.com/Code4Zaaa/DonasiKita.git
-cd DonasiKita/backend
+git clone https://github.com/Code4Zaaa/donasikita.git
+cd donasikita/backend
 
 # Setup environment
 cp .env.example .env
@@ -111,8 +111,8 @@ Atau buka **Issue** 💬 untuk berdiskusi ide dan saran!
 
 Jika proyek ini bermanfaat bagi Anda, dukung pengembangan dengan:
 
+[![Saweria](https://img.shields.io/badge/🎁_Saweria-FF6B35?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDJMMTMuMDkgOC4yNkwyMCA5TDEzLjA5IDE1Ljc0TDEyIDIyTDEwLjkxIDE1Ljc0TDQgOUwxMC45MSA4LjI2TDEyIDJaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4K&logoColor=white)](https://saweria.co/forzaadev)
 [![Donate](https://img.shields.io/badge/☕_Buy_me_a_coffee-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://www.buymeacoffee.com/code4zaaa)
-[![Donate](https://img.shields.io/badge/💝_Donate_via_PayPal-00457C?style=for-the-badge&logo=paypal&logoColor=white)](https://paypal.me/code4zaaa)
 [![Sponsor](https://img.shields.io/badge/❤️_Sponsor_on_GitHub-EA4AAA?style=for-the-badge&logo=github-sponsors&logoColor=white)](https://github.com/sponsors/Code4Zaaa)
 
 ### 🌟 Atau berikan ⭐ Star untuk repository ini!
@@ -121,10 +121,10 @@ Jika proyek ini bermanfaat bagi Anda, dukung pengembangan dengan:
 
 ## 📞 Kontak & Dukungan
 
-- 💬 **Discord**: [Join Server](https://discord.gg/DonasiKita)
-- 📧 **Email**: support@DonasiKita.com
-- 🐦 **Twitter**: [@DonasiKita](https://twitter.com/DonasiKita)
-- 💼 **LinkedIn**: [Donasikita Project](https://linkedin.com/company/DonasiKita)
+- 💬 **Discord**: [Join Server](https://discord.gg/donasikita)
+- 📧 **Email**: support@donasikita.com
+- 🐦 **Twitter**: [@donasikita](https://twitter.com/donasikita)
+- 💼 **LinkedIn**: [Donasikita Project](https://linkedin.com/company/donasikita)
 
 ---
 
@@ -142,7 +142,7 @@ Proyek ini dirilis dengan **MIT License** 📜.
 
 Terima kasih kepada semua kontributor yang telah membantu mengembangkan proyek ini! 🙏
 
-[![Contributors](https://contrib.rocks/image?repo=Code4Zaaa/DonasiKita)](https://github.com/Code4Zaaa/DonasiKita/graphs/contributors)
+[![Contributors](https://contrib.rocks/image?repo=Code4Zaaa/donasikita)](https://github.com/Code4Zaaa/donasikita/graphs/contributors)
 
 ---
 
@@ -150,6 +150,6 @@ Terima kasih kepada semua kontributor yang telah membantu mengembangkan proyek i
 
 ### 🚀 **Dibuat dengan ❤️ oleh komunitas untuk kemudahan berdonasi di Indonesia** 🇮🇩
 
-**[⭐ Star](https://github.com/Code4Zaaa/DonasiKita)** • **[🐛 Report Bug](https://github.com/Code4Zaaa/DonasiKita/issues)** • **[💡 Request Feature](https://github.com/Code4Zaaa/DonasiKita/issues)**
+**[⭐ Star](https://github.com/Code4Zaaa/donasikita)** • **[🐛 Report Bug](https://github.com/Code4Zaaa/donasikita/issues)** • **[💡 Request Feature](https://github.com/Code4Zaaa/donasikita/issues)**
 
 </div>
