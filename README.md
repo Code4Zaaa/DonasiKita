@@ -121,7 +121,7 @@ Jika proyek ini bermanfaat bagi Anda, dukung pengembangan dengan:
 
 ## 📞 Kontak & Dukungan
 
-- 📧 **Email**: hexas@187@gmail.com
+- 📧 **Email**: hexas187@gmail.com
 
 ---
 
