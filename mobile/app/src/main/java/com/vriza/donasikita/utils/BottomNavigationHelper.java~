@@ -1,0 +1,104 @@
+package com.vriza.donasikita.utils;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.view.MenuItem;
+
+import androidx.annotation.NonNull;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.vriza.donasikita.R;
+import com.vriza.donasikita.activities.DonationPageActivity;
+import com.vriza.donasikita.activities.MainActivity;
+
+/**
+ * Helper class to handle bottom navigation consistently across activities
+ * and prevent navigation animation glitches
+ */
+public class BottomNavigationHelper {
+
+    /**
+     * Setup bottom navigation for an activity
+     * @param activity The current activity
+     * @param bottomNavigationView The bottom navigation view
+     * @param currentMenuId The current selected menu item ID
+     */
+    public static void setupBottomNavigation(Activity activity,
+                                             BottomNavigationView bottomNavigationView,
+                                             int currentMenuId) {
+
+        // Set the current selected item without triggering listener
+        bottomNavigationView.setSelectedItemId(currentMenuId);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(item ->
+                handleNavigationItemSelected(activity, item));
+    }
+
+    /**
+     * Handle navigation item selection
+     * @param activity Current activity
+     * @param item Selected menu item
+     * @return true if handled
+     */
+    private static boolean handleNavigationItemSelected(Activity activity, MenuItem item) {
+        int itemId = item.getItemId();
+
+        // Get current activity class name to avoid recreating same activity
+        String currentActivityName = activity.getClass().getSimpleName();
+
+        if (itemId == R.id.nav_beranda) {
+            if (!currentActivityName.equals("MainActivity")) {
+                navigateToActivity(activity, MainActivity.class);
+            }
+            return true;
+
+        } else if (itemId == R.id.nav_donasi) {
+            if (!currentActivityName.equals("DonationPageActivity")) {
+                navigateToActivity(activity, DonationPageActivity.class);
+            }
+            return true;
+
+        } else if (itemId == R.id.nav_donasi_saya) {
+            // TODO: Create and navigate to MyDonationActivity
+            // if (!currentActivityName.equals("MyDonationActivity")) {
+            //     navigateToActivity(activity, MyDonationActivity.class);
+            // }
+            return true;
+
+        } else if (itemId == R.id.nav_donasi_rutin) {
+            // TODO: Create and navigate to RecurringDonationActivity
+            // if (!currentActivityName.equals("RecurringDonationActivity")) {
+            //     navigateToActivity(activity, RecurringDonationActivity.class);
+            // }
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Navigate to target activity with smooth transition
+     * @param currentActivity Current activity
+     * @param targetActivityClass Target activity class
+     */
+    private static void navigateToActivity(Activity currentActivity, Class<?> targetActivityClass) {
+        Intent intent = new Intent(currentActivity, targetActivityClass);
+
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+
+        currentActivity.startActivity(intent);
+        currentActivity.overridePendingTransition(0, 0);
+
+        if (!currentActivity.getClass().getSimpleName().equals("MainActivity")) {
+            currentActivity.finish();
+        }
+    }
+
+    /**
+     * Disable navigation animation for smooth transition
+     * @param activity Current activity
+     */
+    public static void disableNavigationAnimation(Activity activity) {
+        activity.overridePendingTransition(0, 0);
+    }
+}

@@ -1,0 +1,92 @@
+package com.vriza.donasikita.activities;
+
+import android.os.Bundle;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.vriza.donasikita.R;
+import com.vriza.donasikita.fragment.BerandaFragment;
+import com.vriza.donasikita.fragment.DonationFragment;
+import com.vriza.donasikita.fragment.HistoryFragment;
+
+public class MainActivity extends AppCompatActivity {
+
+    private static final String TAG = "MainActivity";
+    private BottomNavigationView bottomNavigationView;
+    private Fragment currentFragment;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        initViews();
+        setupBottomNavigation();
+
+        if (savedInstanceState == null) {
+            loadFragment(new BerandaFragment(), R.id.nav_beranda);
+        }
+    }
+
+    private void initViews() {
+        bottomNavigationView = findViewById(R.id.bottomNavigation);
+    }
+
+    private void setupBottomNavigation() {
+        bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
+        bottomNavigationView.setSelectedItemId(R.id.nav_beranda);
+    }
+
+    private BottomNavigationView.OnNavigationItemSelectedListener navListener =
+            new BottomNavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull android.view.MenuItem item) {
+                    Fragment selectedFragment = null;
+                    int itemId = item.getItemId();
+
+                    if (itemId == R.id.nav_beranda) {
+                        selectedFragment = new BerandaFragment();
+                    } else if (itemId == R.id.nav_donasi) {
+                        selectedFragment = new DonationFragment();
+                    } else if (itemId == R.id.nav_donasi_saya) {
+                        selectedFragment = new HistoryFragment();
+                    }
+
+                    return loadFragment(selectedFragment, itemId);
+                }
+            };
+
+    private boolean loadFragment(Fragment fragment, int selectedItemId) {
+        if (fragment != null) {
+            if (currentFragment != null && currentFragment.getClass().equals(fragment.getClass())) {
+                return true;
+            }
+
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+            transaction.replace(R.id.fragment_container, fragment);
+            transaction.commit();
+
+            currentFragment = fragment;
+            return true;
+        }
+        return false;
+    }
+
+    public Fragment getCurrentFragment() {
+        return getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Fragment currentFragment = getCurrentFragment();
+
+        if (!(currentFragment instanceof BerandaFragment)) {
+            bottomNavigationView.setSelectedItemId(R.id.nav_beranda);
+        } else {
+            super.onBackPressed();
+        }
+    }
+}

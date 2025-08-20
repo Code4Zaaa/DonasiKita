@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_beranda"
+        android:icon="@drawable/ic_home"
+        android:title="Beranda" />
+
+    <item
+        android:id="@+id/nav_donasi"
+        android:icon="@drawable/ic_heart"
+        android:title="Donasi" />
+
+
+    <item
+        android:id="@+id/nav_donasi_saya"
+        android:icon="@drawable/ic_history"
+        android:title="Donasi saya" />
+
+    <item
+        android:id="@+id/nav_donasi_rutin"
+        android:icon="@drawable/ic_refresh"
+        android:title="Donasi rutin" />
+
+</menu>

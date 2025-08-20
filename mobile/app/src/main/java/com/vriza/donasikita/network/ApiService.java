@@ -1,0 +1,61 @@
+// Updated ApiService.java
+package com.vriza.donasikita.network;
+
+import com.vriza.donasikita.models.DonationRequest;
+import com.vriza.donasikita.models.User;
+import com.vriza.donasikita.network.responses.CampaignResponse;
+import com.vriza.donasikita.network.responses.CategoryResponse;
+import com.vriza.donasikita.network.responses.DonationDetailResponse;
+import com.vriza.donasikita.network.responses.DonationHistoryResponse;
+import com.vriza.donasikita.network.responses.DonationResponse;
+import com.vriza.donasikita.network.responses.PaymentChannelResponse;
+import com.vriza.donasikita.network.responses.UserResponse;
+
+import retrofit2.Call;
+import retrofit2.http.Body;
+import retrofit2.http.GET;
+import retrofit2.http.Header;
+import retrofit2.http.POST;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
+
+public interface ApiService {
+    @GET("campaigns")
+    Call<CampaignResponse> getCampaigns();
+
+    @GET("campaigns")
+    Call<CampaignResponse> getCampaignsByCategory(@Query("category") String category);
+
+    @GET("campaigns")
+    Call<CampaignResponse> getCampaigns(
+            @Query("is_recommendation") Boolean isRecommendation,
+            @Query("q") String query,
+            @Query("category_id") Integer categoryId
+    );
+
+
+
+    @GET("category")
+    Call<CategoryResponse> getCategories();
+
+    @GET("payment-channels")
+    Call<PaymentChannelResponse> getPaymentChannels();
+
+    @POST("login-or-register")
+    Call<UserResponse> loginOrRegisterUser(@Header("Authorization") String idToken);
+
+    @POST("donations")
+    Call<DonationResponse> createDonation(@Body DonationRequest donationRequest);
+
+    @POST("donations")
+    Call<DonationResponse> createDonationWithAuth(
+            @Header("Authorization") String authToken,
+            @Body DonationRequest donationRequest
+    );
+
+    @GET("donations/by-order-id/%23{order_id}")
+    Call<DonationDetailResponse> getDonationByOrderId(@Path("order_id") String orderId);
+
+    @GET("donations/me")
+    Call<DonationHistoryResponse> getDonationHistory(@Header("Authorization") String authToken);
+}

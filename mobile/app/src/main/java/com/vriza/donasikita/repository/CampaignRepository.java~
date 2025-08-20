@@ -1,0 +1,67 @@
+package com.vriza.donasikita.repository;
+
+import android.util.Log;
+import androidx.annotation.Nullable;
+import com.vriza.donasikita.models.Campaign;
+import com.vriza.donasikita.network.ApiClient;
+import com.vriza.donasikita.network.ApiService;
+import com.vriza.donasikita.network.responses.CampaignResponse;
+import java.util.List;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class CampaignRepository {
+    private static final String TAG = "CampaignRepository";
+    private ApiService apiService;
+
+    public CampaignRepository() {
+        this.apiService = ApiClient.getApiService();
+    }
+
+    // Callback interface untuk hasil asynchronous
+    public interface CampaignCallback {
+        void onSuccess(List<Campaign> campaigns);
+        void onError(String errorMessage);
+    }
+
+    /**
+     * Mengambil daftar kampanye dari API.
+     * @param isRecommendation true untuk kampanye populer, false atau null untuk semua.
+     * @param categoryId ID kategori untuk filter, null jika tidak ada.
+     * @param query Kata kunci pencarian, null jika tidak ada.
+     * @param callback Callback untuk menangani hasil.
+     */
+    public void getCampaigns(@Nullable Boolean isRecommendation, @Nullable Integer categoryId, @Nullable String query, CampaignCallback callback) {
+        Call<CampaignResponse> call = apiService.getCampaigns(isRecommendation, query, categoryId);
+        call.enqueue(new Callback<CampaignResponse>() {
+            @Override
+            public void onResponse(Call<CampaignResponse> call, Response<CampaignResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    CampaignResponse campaignResponse = response.body();
+                    // Asumsi CampaignResponse memiliki struktur { success, message, data }
+                    if (campaignResponse.isSuccess() && campaignResponse.getData() != null) {
+                        callback.onSuccess(campaignResponse.getData());
+                        Log.d(TAG, "Berhasil memuat " + campaignResponse.getData().size() + " kampanye.");
+                    } else {
+                        String errorMessage = campaignResponse.getMessage() != null ?
+                                campaignResponse.getMessage() : "Data kampanye kosong atau respons tidak sukses.";
+                        callback.onError(errorMessage);
+                        Log.w(TAG, "API merespons dengan pesan: " + errorMessage);
+                    }
+                } else {
+                    String errorMsg = "Gagal memuat data kampanye. Kode: " + response.code();
+                    Log.e(TAG, errorMsg);
+                    callback.onError(errorMsg);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CampaignResponse> call, Throwable t) {
+                String errorMsg = "Koneksi bermasalah: " + t.getMessage();
+                Log.e(TAG, errorMsg, t);
+                callback.onError(errorMsg);
+            }
+        });
+    }
+}

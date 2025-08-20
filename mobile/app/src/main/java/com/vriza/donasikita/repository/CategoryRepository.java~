@@ -1,0 +1,66 @@
+package com.vriza.donasikita.repository;
+
+import android.util.Log;
+import com.vriza.donasikita.models.Category;
+import com.vriza.donasikita.network.responses.CategoryResponse;
+import com.vriza.donasikita.network.ApiClient;
+import com.vriza.donasikita.network.ApiService;
+import java.util.ArrayList;
+import java.util.List;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class CategoryRepository {
+    private static final String TAG = "CategoryRepository";
+    private ApiService apiService;
+
+    public CategoryRepository() {
+        apiService = ApiClient.getApiService();
+    }
+
+    public interface CategoryCallback {
+        void onSuccess(List<Category> categories);
+        void onError(String errorMessage);
+    }
+
+    public void getCategories(CategoryCallback callback) {
+        Call<CategoryResponse> call = apiService.getCategories();
+        call.enqueue(new Callback<CategoryResponse>() {
+            @Override
+            public void onResponse(Call<CategoryResponse> call, Response<CategoryResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    CategoryResponse categoryResponse = response.body();
+
+                    if (categoryResponse.isSuccess() && categoryResponse.getData() != null) {
+                        callback.onSuccess(categoryResponse.getData());
+                        Log.d(TAG, "Berhasil memuat " + categoryResponse.getData().size() + " kategori");
+                    } else {
+                        callback.onError(categoryResponse.getMessage() != null ?
+                                categoryResponse.getMessage() : "Data kategori kosong");
+                    }
+                } else {
+                    Log.e(TAG, "Response tidak berhasil: " + response.code());
+                    callback.onError("Gagal memuat data kategori");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CategoryResponse> call, Throwable t) {
+                Log.e(TAG, "API call gagal: " + t.getMessage());
+                callback.onError("Koneksi bermasalah: " + t.getMessage());
+            }
+        });
+    }
+
+    public List<Category> getSampleCategories() {
+        List<Category> categories = new ArrayList<>();
+        categories.add(new Category(1, "Bencana Alam", "bencana-alam"));
+        categories.add(new Category(2, "Pendidikan", "pendidikan"));
+        categories.add(new Category(3, "Kesehatan", "kesehatan"));
+        categories.add(new Category(4, "Sosial", "sosial"));
+        categories.add(new Category(5, "Lingkungan", "lingkungan"));
+        categories.add(new Category(6, "Kemanusiaan", "kemanusiaan"));
+        return categories;
+    }
+}

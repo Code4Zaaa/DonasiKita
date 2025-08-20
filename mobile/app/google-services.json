@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "610010857835",
+    "project_id": "donasikita-f31b8",
+    "storage_bucket": "donasikita-f31b8.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:610010857835:android:741ee1dd0abd3631fd4c2e",
+        "android_client_info": {
+          "package_name": "com.vriza.donasikita"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "610010857835-341s6nk3f2c2fv65elrln6og8hav8elr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vriza.donasikita",
+            "certificate_hash": "73a438ff50c0772eb943b310791ac9e43bcb818d"
+          }
+        },
+        {
+          "client_id": "610010857835-hg8ctu2nj7tqc87gulcrekvqanstnree.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBPKTrF1KNSoAGihJtJO6F8tXxgjpdDeQk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "610010857835-hg8ctu2nj7tqc87gulcrekvqanstnree.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

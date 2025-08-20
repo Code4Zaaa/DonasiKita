@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:aapt="http://schemas.android.com/aapt" android:layout_width="match_parent" android:layout_height="match_parent">
+    <androidx.constraintlayout.motion.widget.MotionLayout android:id="@+id/motionLayout" android:background="@color/cerulean_50" android:layout_width="match_parent" android:layout_height="match_parent" app:layoutDescription="@xml/splash_motionlayout_scene">
+        <TextView android:textSize="16sp" android:textColor="@color/white" android:gravity="center_horizontal" android:id="@+id/textViewQuotes" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginTop="100dp" android:text="@string/text_quotes" android:layout_marginStart="40dp" android:layout_marginEnd="40dp"/>
+        <ImageView android:id="@+id/imageViewQuotes" android:layout_width="53dp" android:layout_height="52dp" android:src="@drawable/ic_quotes" android:contentDescription="@string/app_name" android:layout_marginStart="40dp"/>
+        <ImageView android:id="@+id/imageViewLogo" android:layout_width="70dp" android:layout_height="16dp" android:src="@drawable/ic_donasikita_text" android:contentDescription="@string/app_name"/>
+    </androidx.constraintlayout.motion.widget.MotionLayout>
+    <FrameLayout android:id="@+id/containerForceUpdate" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent"/>
+</FrameLayout>

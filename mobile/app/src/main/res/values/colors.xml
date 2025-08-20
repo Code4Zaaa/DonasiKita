@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary Colors -->
+    <color name="primary_color">#2196F3</color>
+    <color name="primary_dark">#1976D2</color>
+    <color name="primary_light">#BBDEFB</color>
+    <color name="secondary_color">#FF9800</color>
+    <color name="secondary_dark">#F57C00</color>
+    <color name="secondary_light">#FFE0B2</color>
+
+    <!-- Background Colors -->
+    <color name="background_color">#F5F7FA</color>
+    <color name="surface_color">#FFFFFF</color>
+    <color name="card_background">#FFFFFF</color>
+    <color name="colorPrimaryDark">#1976D2</color>
+
+    <!-- Text Colors -->
+    <color name="text_primary">#212121</color>
+    <color name="text_secondary">#757575</color>
+    <color name="text_hint">#BDBDBD</color>
+    <color name="text_disabled">#BDBDBD</color>
+
+    <!-- Status Colors -->
+    <color name="success_color">#4CAF50</color>
+    <color name="error_color">#D32F2F</color>
+    <color name="warning_color">#FFC107</color>
+    <color name="info_color">#1976D2</color>
+
+    <!-- Basic Colors -->
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="stroke_color">#E0E0E0</color>
+    <color name="divider_color">#EEEEEE</color>
+    <color name="transparent">#00000000</color>
+
+    <!-- Progress Colors -->
+    <color name="progress_background">#BBDEFB</color>
+    <color name="progress_filled">#2196F3</color>
+
+    <!-- Gradient Colors -->
+    <color name="gradient_start">#FFB74D</color>
+    <color name="gradient_end">#FF9800</color>
+
+    <!-- Category Colors -->
+    <color name="category_disaster">#EF5350</color>
+    <color name="education_light">#E3F2FD</color>
+    <color name="education_dark">#1E88E5</color>
+    <color name="health_light">#E8F5E9</color>
+    <color name="health_dark">#43A047</color>
+    <color name="disaster_light">#FFF3E0</color>
+    <color name="disaster_dark">#FB8C00</color>
+    <color name="social_light">#F3E5F5</color>
+    <color name="social_dark">#8E24AA</color>
+    <color name="environment_light">#E0F2F1</color>
+    <color name="environment_dark">#00897B</color>
+
+    <!-- Brand Colors (Cerulean) -->
+
+    <color name="cerulean_30">#3fb9ea</color>
+    <color name="cerulean_50">#10a8e5</color>
+    <color name="cerulean_60">#0e97ce</color>
+    <color name="cerulean_70">#1E88E5</color>"
+
+    <!-- Additional Program Colors -->
+    <color name="food_color">#FF7043</color>
+    <color name="school_color">#5C6BC0</color>
+    <color name="power_color">#26A69A</color>
+    <color name="animal_color">#FFA726</color>
+    <color name="palestine_color">#EF5350</color>
+</resources>

@@ -1,0 +1,185 @@
+package com.vriza.donasikita.adapters;
+
+import android.content.Context;
+import android.os.Build;
+import android.text.Html;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
+import com.vriza.donasikita.R;
+import com.vriza.donasikita.models.Campaign;
+
+import java.text.NumberFormat;
+import java.util.List;
+import java.util.Locale;
+
+public class CampaignAdapter extends RecyclerView.Adapter<CampaignAdapter.CampaignViewHolder> {
+
+    private final List<Campaign> campaignList;
+    private final OnCampaignClickListener listener;
+    private final boolean isHorizontal;
+    private Context context;
+    private final NumberFormat currencyFormatter;
+
+    public interface OnCampaignClickListener {
+        void onCampaignClick(Campaign campaign);
+    }
+
+    public CampaignAdapter(List<Campaign> campaignList, OnCampaignClickListener listener, boolean isHorizontal) {
+        this.campaignList = campaignList;
+        this.listener = listener;
+        this.isHorizontal = isHorizontal;
+        this.currencyFormatter = NumberFormat.getCurrencyInstance(new Locale("id", "ID"));
+        this.currencyFormatter.setMaximumFractionDigits(0);
+    }
+
+    @NonNull
+    @Override
+    public CampaignViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        context = parent.getContext();
+        int layoutId = isHorizontal ? R.layout.item_campaign_horizontal : R.layout.item_campaign;
+        View view = LayoutInflater.from(context).inflate(layoutId, parent, false);
+        return new CampaignViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull CampaignViewHolder holder, int position) {
+        Campaign campaign = campaignList.get(position);
+        holder.bind(campaign);
+    }
+
+    @Override
+    public int getItemCount() {
+        return campaignList != null ? campaignList.size() : 0;
+    }
+
+    public class CampaignViewHolder extends RecyclerView.ViewHolder {
+        ImageView imgCampaign, imgVerified;
+        TextView txtTitle, txtDescription, txtCollected, txtTarget, txtDonors, txtCategory, txtDaysLeftBadge;
+        ProgressBar progressBar;
+
+        TextView tvCurrentDonation, tvProgressPercentage, tvDaysLeft;
+        ProgressBar progressBarDonation;
+
+        public CampaignViewHolder(@NonNull View itemView) {
+            super(itemView);
+
+            if (isHorizontal) {
+                imgCampaign = itemView.findViewById(R.id.ivCampaignImage);
+                txtTitle = itemView.findViewById(R.id.tvCampaignTitle);
+                tvCurrentDonation = itemView.findViewById(R.id.tvCurrentDonation);
+                tvProgressPercentage = itemView.findViewById(R.id.tvProgressPercentage);
+                progressBarDonation = itemView.findViewById(R.id.progressBarDonation);
+                tvDaysLeft = itemView.findViewById(R.id.tvDaysLeft);
+            } else {
+                imgCampaign = itemView.findViewById(R.id.imgCampaign);
+                txtCategory = itemView.findViewById(R.id.txtCategory);
+                txtDaysLeftBadge = itemView.findViewById(R.id.txtDaysLeftBadge);
+                txtTitle = itemView.findViewById(R.id.txtTitle);
+                imgVerified = itemView.findViewById(R.id.imgVerified);
+                txtDescription = itemView.findViewById(R.id.txtDescription);
+                progressBar = itemView.findViewById(R.id.progressBar);
+                txtCollected = itemView.findViewById(R.id.txtCollected);
+                txtTarget = itemView.findViewById(R.id.txtTarget);
+                txtDonors = itemView.findViewById(R.id.txtDonors);
+            }
+        }
+
+        void bind(Campaign campaign) {
+            if (txtTitle != null) {
+                txtTitle.setText(campaign.getTitle());
+            }
+
+            if (imgCampaign != null) {
+                Glide.with(context)
+                        .load(campaign.getImageUrl())
+                        .placeholder(R.drawable.placeholder_campaign)
+                        .error(R.drawable.placeholder_campaign)
+                        .centerCrop()
+                        .into(imgCampaign);
+            }
+
+            int progress = 0;
+            if (campaign.getTargetAmount() > 0) {
+                progress = (int) ((campaign.getCollectedAmount() * 100) / campaign.getTargetAmount());
+            }
+
+            if (isHorizontal) {
+                bindHorizontal(campaign, progress);
+            } else {
+                bindVertical(campaign, progress);
+            }
+
+            itemView.setOnClickListener(v -> {
+                if(listener != null) {
+                    listener.onCampaignClick(campaign);
+                }
+            });
+        }
+
+        private void bindHorizontal(Campaign campaign, int progress) {
+            if (tvCurrentDonation != null) {
+                tvCurrentDonation.setText(currencyFormatter.format(campaign.getCollectedAmount()));
+            }
+            if (progressBarDonation != null) {
+                progressBarDonation.setProgress(progress);
+            }
+            if (tvProgressPercentage != null) {
+                tvProgressPercentage.setText(String.format(Locale.getDefault(), "%d%%", progress));
+            }
+            if (tvDaysLeft != null) {
+                setDaysLeftText(tvDaysLeft, campaign.getDaysLeft());
+            }
+        }
+
+        private void bindVertical(Campaign campaign, int progress) {
+            if (txtDescription != null) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    txtDescription.setText(Html.fromHtml(campaign.getDescription(), Html.FROM_HTML_MODE_COMPACT));
+                } else {
+                    txtDescription.setText(Html.fromHtml(campaign.getDescription()));
+                }
+            }
+            if (txtCollected != null) {
+                txtCollected.setText(currencyFormatter.format(campaign.getCollectedAmount()));
+            }
+            if (txtTarget != null) {
+                txtTarget.setText("dari " + currencyFormatter.format(campaign.getTargetAmount()));
+            }
+            if (progressBar != null) {
+                progressBar.setProgress(progress);
+            }
+            if (txtDonors != null) {
+                txtDonors.setText(String.format(Locale.getDefault(), "%d donatur", campaign.getDonorCount()));
+            }
+            if (txtCategory != null) {
+                txtCategory.setText(campaign.getCategoryName());
+            }
+            if (txtDaysLeftBadge != null) {
+                setDaysLeftText(txtDaysLeftBadge, campaign.getDaysLeft());
+            }
+            if (imgVerified != null) {
+                imgVerified.setVisibility(campaign.isRecommendation() ? View.VISIBLE : View.GONE);
+            }
+        }
+
+        private void setDaysLeftText(TextView textView, int daysLeft) {
+            if (daysLeft > 0) {
+                textView.setText(String.format(Locale.getDefault(), "%d hari lagi", daysLeft));
+                textView.setTextColor(ContextCompat.getColor(context, isHorizontal ? R.color.warning_color : R.color.white));
+            } else {
+                textView.setText("Berakhir");
+                textView.setTextColor(ContextCompat.getColor(context, R.color.error_color));
+            }
+        }
+    }
+}

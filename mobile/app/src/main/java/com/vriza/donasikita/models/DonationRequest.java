@@ -1,0 +1,151 @@
+package com.vriza.donasikita.models;
+
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
+import com.google.gson.annotations.SerializedName;
+
+public class DonationRequest implements Parcelable {
+
+    @SerializedName("id")
+    private int id;
+
+    @SerializedName("user_id")
+    private String userId;
+
+    @SerializedName("campaign_id")
+    private String campaignId;
+
+    @SerializedName("amount")
+    private String amount;
+
+    @SerializedName("payment_method")
+    private String payment_method;
+
+    @SerializedName("is_anonymous")
+    private boolean isAnonymous;
+
+    @SerializedName("doa")
+    private String doa;
+
+    @SerializedName("status")
+    private String status;
+
+    @SerializedName("created_at")
+    private String createdAt;
+
+    @SerializedName("user")
+    private User user;
+
+    public DonationRequest() {
+        // Constructor kosong
+    }
+
+    // Getters
+    public int getId() { return id; }
+    public String getUserId() { return userId; }
+    public String getCampaignId() { return campaignId; }
+    public void setCampaignId(String campaignId) { this.campaignId = campaignId; }
+    public String getPayment_method() { return payment_method; }
+    public void setPayment_method(String payment_method) { this.payment_method = payment_method; }
+    public String getAmount() { return amount; }
+    public void setAmount(String amount) { this.amount = amount; }
+    public boolean isAnonymous() { return isAnonymous; }
+    public String getDoa() { return doa; }
+    public void setDoa(String doa) { this.doa = doa; }
+    public String getStatus() { return status; }
+    public String getCreatedAt() { return createdAt; }
+    public User getUser() { return user; }
+
+    public void setIs_anonymous(boolean isAnonymous) {
+        this.isAnonymous = isAnonymous;
+    }
+
+
+    protected DonationRequest(Parcel in) {
+        id = in.readInt();
+        userId = in.readString();
+        amount = in.readString();
+        isAnonymous = in.readByte() != 0;
+        doa = in.readString();
+        status = in.readString();
+        createdAt = in.readString();
+        user = in.readParcelable(User.class.getClassLoader());
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(userId);
+        dest.writeString(amount);
+        dest.writeByte((byte) (isAnonymous ? 1 : 0));
+        dest.writeString(doa);
+        dest.writeString(status);
+        dest.writeString(createdAt);
+        dest.writeParcelable(user, flags); 
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<DonationRequest> CREATOR = new Creator<DonationRequest>() {
+        @Override
+        public DonationRequest createFromParcel(Parcel in) {
+            return new DonationRequest(in);
+        }
+
+        @Override
+        public DonationRequest[] newArray(int size) {
+            return new DonationRequest[size];
+        }
+    };
+
+    public static class User implements Parcelable {
+        @SerializedName("id")
+        private int id;
+
+        @SerializedName("name")
+        private String name;
+
+        @SerializedName("photo_url")
+        private String photoUrl;
+
+        public int getId() { return id; }
+        public String getName() { return name; }
+        public String getPhotoUrl() { return photoUrl; }
+
+        protected User(Parcel in) {
+            id = in.readInt();
+            name = in.readString();
+            photoUrl = in.readString();
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeInt(id);
+            dest.writeString(name);
+            dest.writeString(photoUrl);
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        public static final Creator<User> CREATOR = new Creator<User>() {
+            @Override
+            public User createFromParcel(Parcel in) {
+                return new User(in);
+            }
+
+            @Override
+            public User[] newArray(int size) {
+                return new User[size];
+            }
+        };
+    }
+}

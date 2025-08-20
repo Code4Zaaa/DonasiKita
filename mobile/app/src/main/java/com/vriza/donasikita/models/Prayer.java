@@ -1,0 +1,117 @@
+package com.vriza.donasikita.models;
+
+import android.os.Parcel;
+import android.os.Parcelable;
+import com.google.gson.annotations.SerializedName;
+
+public class Prayer implements Parcelable {
+    @SerializedName("id")
+    private int id;
+
+    @SerializedName("doa")
+    private String doa;
+
+    @SerializedName("user_id")
+    private String userId;
+
+    @SerializedName("is_anonymous")
+    private boolean isAnonymous;
+
+    @SerializedName("created_at")
+    private String createdAt;
+
+    @SerializedName("amount")
+    private String amount;
+
+    private String userName;
+    private String userPhotoUrl;
+
+    // Default constructor
+    public Prayer() {}
+
+    // Constructor untuk membuat Prayer dari Donation
+    public Prayer(String doa, String userId, boolean isAnonymous, String createdAt, String amount, String userName, String userPhotoUrl) {
+        this.doa = doa;
+        this.userId = userId;
+        this.isAnonymous = isAnonymous;
+        this.createdAt = createdAt;
+        this.amount = amount;
+        this.userName = userName; 
+        this.userPhotoUrl = userPhotoUrl; 
+    }
+
+    // Parcelable implementation
+    protected Prayer(Parcel in) {
+        id = in.readInt();
+        doa = in.readString();
+        userId = in.readString();
+        isAnonymous = in.readByte() != 0;
+        createdAt = in.readString();
+        amount = in.readString();
+        userName = in.readString();
+        userPhotoUrl = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(doa);
+        dest.writeString(userId);
+        dest.writeByte((byte) (isAnonymous ? 1 : 0));
+        dest.writeString(createdAt);
+        dest.writeString(amount);
+        dest.writeString(userName);
+        dest.writeString(userPhotoUrl);
+    }
+
+
+    // Getters and Setters
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
+
+    public String getDoa() { return doa; }
+    public void setDoa(String doa) { this.doa = doa; }
+
+    public String getUserName() { return userName; }
+    public void setUserName(String userName) { this.userName = userName; }
+
+    public String getUserPhotoUrl() { return userPhotoUrl; }
+    public void setUserPhotoUrl(String userPhotoUrl) { this.userPhotoUrl = userPhotoUrl; }
+
+    public String getUserId() { return userId; }
+    public void setUserId(String userId) { this.userId = userId; }
+
+    public boolean isAnonymous() { return isAnonymous; }
+    public void setAnonymous(boolean anonymous) { isAnonymous = anonymous; }
+
+    public String getCreatedAt() { return createdAt; }
+    public void setCreatedAt(String createdAt) { this.createdAt = createdAt; }
+
+    public String getAmount() { return amount; }
+    public void setAmount(String amount) { this.amount = amount; }
+
+    public String getDisplayName() {
+        if (isAnonymous || userId == null || userId.isEmpty()) {
+            return "Orang Baik";
+        }
+        return getUserName(); 
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<Prayer> CREATOR = new Creator<Prayer>() {
+        @Override
+        public Prayer createFromParcel(Parcel in) {
+            return new Prayer(in);
+        }
+
+        @Override
+        public Prayer[] newArray(int size) {
+            return new Prayer[size];
+        }
+    };
+
+}

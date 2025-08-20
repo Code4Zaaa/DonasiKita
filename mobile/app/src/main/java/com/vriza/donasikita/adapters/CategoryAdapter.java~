@@ -1,0 +1,134 @@
+package com.vriza.donasikita.adapters;
+
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.google.android.material.card.MaterialCardView;
+import com.vriza.donasikita.R;
+import com.vriza.donasikita.models.Category;
+import java.util.List;
+
+public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder> {
+
+    private final List<Category> categoryList;
+    private final OnCategoryClickListener listener;
+    private final Context context;
+    private int selectedCategoryId = 1; // Default selected category (All = 0)
+
+    public interface OnCategoryClickListener {
+        void onCategoryClick(Category category);
+    }
+
+    public CategoryAdapter(Context context, List<Category> categoryList, OnCategoryClickListener listener) {
+        this.context = context;
+        this.categoryList = categoryList;
+        this.listener = listener;
+    }
+
+    @NonNull
+    @Override
+    public CategoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_category, parent, false);
+        return new CategoryViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
+        Category category = categoryList.get(position);
+        boolean isSelected = category.getId() == selectedCategoryId;
+
+        holder.tvCategoryName.setText(category.getName());
+
+        RequestOptions requestOptions = new RequestOptions()
+                .placeholder(R.drawable.ic_launcher_foreground)
+                .error(R.drawable.ic_launcher_foreground)
+                .centerInside();
+
+        Glide.with(context)
+                .load(category.getIcon())
+                .apply(requestOptions)
+                .into(holder.ivCategoryIcon);
+
+        if (isSelected) {
+            holder.cardView.setCardBackgroundColor(ContextCompat.getColor(context, R.color.primary_color));
+            holder.tvCategoryName.setTextColor(ContextCompat.getColor(context, R.color.white));
+            holder.ivCategoryIcon.setColorFilter(ContextCompat.getColor(context, R.color.white));
+        } else {
+            holder.cardView.setCardBackgroundColor(ContextCompat.getColor(context, R.color.white));
+            holder.tvCategoryName.setTextColor(ContextCompat.getColor(context, R.color.text_primary));
+            holder.ivCategoryIcon.clearColorFilter();
+        }
+
+        holder.itemView.setOnClickListener(v -> {
+            if (listener != null) {
+                int previousSelected = selectedCategoryId;
+                selectedCategoryId = category.getId();
+
+                notifyItemChanged(getPositionById(previousSelected));
+                notifyItemChanged(position);
+
+                listener.onCategoryClick(category);
+            }
+        });
+    }
+
+    @Override
+    public int getItemCount() {
+        return categoryList != null ? categoryList.size() : 0;
+    }
+
+
+    public static class CategoryViewHolder extends RecyclerView.ViewHolder {
+        ImageView ivCategoryIcon;
+        TextView tvCategoryName;
+        MaterialCardView cardView;
+
+        public CategoryViewHolder(@NonNull View itemView) {
+            super(itemView);
+            cardView = (MaterialCardView) itemView;
+            ivCategoryIcon = itemView.findViewById(R.id.ivCategoryIcon);
+            tvCategoryName = itemView.findViewById(R.id.tvCategoryTitle);
+        }
+    }
+
+
+    public void updateCategories(List<Category> newCategories) {
+        if (newCategories != null) {
+            this.categoryList.clear();
+            this.categoryList.addAll(newCategories);
+            notifyDataSetChanged();
+        }
+    }
+
+
+    public void setSelectedCategory(int categoryId) {
+        int previousSelected = selectedCategoryId;
+        selectedCategoryId = categoryId;
+
+        notifyItemChanged(getPositionById(previousSelected));
+        notifyItemChanged(getPositionById(categoryId));
+    }
+
+    private int getPositionById(int categoryId) {
+        for (int i = 0; i < categoryList.size(); i++) {
+            if (categoryList.get(i).getId() == categoryId) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public int getSelectedCategoryId() {
+        return selectedCategoryId;
+    }
+}

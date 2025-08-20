@@ -1,0 +1,4 @@
+package com.vriza.donasikita.network.responses;
+
+public class DonationHistoryResponse {
+}

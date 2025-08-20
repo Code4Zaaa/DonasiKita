@@ -1,0 +1,68 @@
+<resources>
+    <string name="app_name">DonasiKita</string>
+
+    <string name="search_campaigns">Cari kampanye...</string>
+    <string name="categories">Kategori</string>
+    <string name="popular_campaigns">Kampanye Populer</string>
+    <string name="all_campaigns">Semua Kampanye</string>
+
+    <string name="days_left">%d hari lagi</string>
+    <string name="target_reached">Target tercapai %d%%</string>
+    <string name="donate_now">Donasi Sekarang</string>
+    <string name="view_details">Lihat Detail</string>
+
+    <string name="currency_format">Rp %s</string>
+    <string name="target_format">Target: Rp %s</string>
+    <string name="collected_format">Terkumpul: Rp %s</string>
+
+    <string name="active">Aktif</string>
+    <string name="completed">Selesai</string>
+    <string name="expired">Berakhir</string>
+
+    <string name="home">Beranda</string>
+    <string name="profile">Profil</string>
+    <string name="history">Riwayat</string>
+
+    <string name="text_quotes">Donasi gabuat kamu miskin</string>
+    <string name="syarat_ketentuan"><![CDATA[Syarat & Ketentuan]]></string>
+    <string name="lupa_password">Lupa Password?</string>
+    <string name="bantuan_dukungan"><![CDATA[Bantuan & Dukungan]]></string>
+
+    <string name="donation_title">Terancam Gagal Organ, Bantu Fauzi Berjuang Sehat!</string>
+    <string name="nominal_donasi">Nominal donasi</string>
+    <string name="currency_rp">Rp</string>
+    <string name="amount_hint">5.000</string>
+    <string name="optional">Opsional</string>
+    <string name="salingjaga_text">Tambah donasimu untuk lindungi keluarga dhuafa lewat perlindungan jiwa SalingJaga</string>
+    <string name="masukkan_nominal_lain">Masukkan nominal lain</string>
+    <string name="hide_name">Sembunyikan nama saya (donasi Anonim)</string>
+    <string name="prayer_support">Sertakan doa dan dukungan (opsional)</string>
+    <string name="prayer_hint">Tulis doa untuk penggalang dana atau dirimu agar bisa diamini oleh Orang Baik lainnya.</string>
+    <string name="character_count">0/240</string>
+    <string name="payment_method">Metode pembayaran</string>
+    <string name="choose">Pilih</string>
+    <string name="change">Ubah</string>
+    <string name="donation_info">Donasimu sudah termasuk 5% donasi operasional Yayasan Kitabisa, kecuali untuk kategori zakat dan bencana alam nasional.</string>
+    <string name="read_more">Selengkapnya</string>
+    <string name="total_payment">Total Pembayaran</string>
+    <string name="continue_payment">Lanjut Pembayaran</string>
+
+    <string name="select_payment_method">Pilih Metode Pembayaran</string>
+    <string name="bank_transfer">Bank Transfer</string>
+    <string name="dana">DANA</string>
+    <string name="ovo">OVO</string>
+    <string name="gopay">GoPay</string>
+    <string name="shopeepay">ShopeePay</string>
+    <string name="indomaret">Indomaret</string>
+    <string name="alfamart">Alfamart</string>
+    <string name="credit_card">Credit Card</string>
+
+    <string name="amount_5000">5000</string>
+    <string name="amount_20000">20000</string>
+    <string name="amount_25000">25000</string>
+    <string name="amount_50000">50000</string>
+
+    <string name="please_enter_amount">Mohon masukkan nominal donasi</string>
+    <string name="please_select_payment">Mohon pilih metode pembayaran</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
